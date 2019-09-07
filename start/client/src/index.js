@@ -9,16 +9,27 @@ import Pages from './pages';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://localhost:4000/'
-})
+  uri: 'http://localhost:4000/graphql',
+  headers: {
+    authorization: localStorage.getItem('token'),
+  },
+});
 
 const client = new ApolloClient({
   cache,
-  link
+  link,
 });
+
+cache.writeData({
+  data: {
+    isLoggedIn: !!localStorage.getItem('token'),
+    cartItems: [],
+  },
+})
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Pages />
-  </ApolloProvider>, document.getElementById('root')
+  </ApolloProvider>,
+  document.getElementById('root')
 );
