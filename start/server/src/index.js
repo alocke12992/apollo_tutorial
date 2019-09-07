@@ -22,6 +22,9 @@ const server = new ApolloServer({
   },
   typeDefs,
   resolvers,
+  engine: {
+    apiKey: "service:alocke12992-tutorialGraph:izie1tD5oG8DAVVWHVfxCQ"
+  },
   dataSources: () => ({
     launchAPI: new LaunchAPI(),
     userAPI: new UserAPI({ store })  
